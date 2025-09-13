@@ -12,13 +12,13 @@ export function PurpleHero() {
           {/* Left Column — text */}
           <div className="lg:col-span-7 space-y-8">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight tracking-tight">
-              The Enterprise AI
+              Building Scalable
               <br />
-              Orchestration
+              and Robust AI
               <br />
-              Platform with
+              Solutions and Products
               <br />
-              <span className="text-goftus-aqua">Integrations</span>
+              <span className="text-goftus-aqua">worldwide.</span>
             </h1>
 
             <p className="text-lg md:text-xl text-foreground-secondary leading-relaxed max-w-xl">

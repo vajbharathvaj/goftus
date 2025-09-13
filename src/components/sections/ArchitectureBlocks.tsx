@@ -41,7 +41,7 @@ export function ArchitectureBlocks() {
             <div className="card-light p-6 bg-gradient-to-r from-goftus-aqua/5 to-goftus-aqua/10 border-goftus-aqua/20">
               <div className="w-full h-2 bg-goftus-aqua rounded-full mb-4"></div>
               <h3 className="text-xl font-bold text-heading mb-2">
-                AIRIA AI ORCHESTRATION PLATFORM
+                GOFTUS AI ORCHESTRATION PLATFORM
               </h3>
             </div>
 
@@ -75,23 +75,23 @@ export function ArchitectureBlocks() {
             {/* Data Integration Architecture */}
             <div className="card-light p-4 bg-gradient-to-r from-blue-500/5 to-blue-600/10 border-blue-500/20">
               <div className="w-full h-2 bg-blue-500 rounded-full mb-2"></div>
-              <h3 className="font-bold text-heading">DATA INTEGRATION ARCHITECTURE</h3>
+              <h3 className="font-bold text-heading">Foundational Model Building</h3>
             </div>
 
             {/* Hosting Options */}
             <div className="card-light p-6 bg-gradient-to-r from-purple-500/5 to-purple-600/10 border-purple-500/20">
               <div className="w-full h-2 bg-purple-500 rounded-full mb-4"></div>
-              <h3 className="font-bold text-heading mb-4">FLEXIBLE HOSTING OPTIONS</h3>
+              <h3 className="font-bold text-heading mb-4">Machine Learning Models </h3>
 
               <div className="grid grid-cols-3 gap-3">
                 <div className="text-center p-3 bg-background/50 rounded-lg">
-                  <h4 className="font-medium text-sm text-heading">Airia Cloud</h4>
+                  <h4 className="font-medium text-sm text-heading"> Saas Products</h4>
                 </div>
                 <div className="text-center p-3 bg-background/50 rounded-lg">
-                  <h4 className="font-medium text-sm text-heading">Private Cloud</h4>
+                  <h4 className="font-medium text-sm text-heading">AI Agents</h4>
                 </div>
                 <div className="text-center p-3 bg-background/50 rounded-lg">
-                  <h4 className="font-medium text-sm text-heading">On-Premises</h4>
+                  <h4 className="font-medium text-sm text-heading">Agentic AI</h4>
                 </div>
               </div>
             </div>

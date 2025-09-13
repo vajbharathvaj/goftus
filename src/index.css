@@ -389,9 +389,19 @@
   animation: marquee 28s linear infinite;
 }
 
+
 .marquee-paused {
   animation: marquee 28s linear infinite;
   animation-play-state: paused;
+}
+@keyframes shine {
+  0%   { transform: translateX(0) }
+  100% { transform: translateX(200%) }
+}
+
+@keyframes pulseGlow {
+  0%,100% { opacity: .18; transform: scale(.98) }
+  50%     { opacity: .35; transform: scale(1) }
 }
 
 /* Optional: hide scrollbars for older browsers if you reuse overflow areas */

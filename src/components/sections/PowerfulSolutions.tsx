@@ -31,7 +31,7 @@ export function PowerfulSolutions() {
           <h2 className="text-5xl lg:text-6xl font-bold text-heading mb-6 leading-tight">
             Powerful solutions in an
             <br />
-            <span className="gradient-aqua">all-in-one platform.</span>
+            <span className="gradient-aqua">all-in-one place.</span>
           </h2>
         </div>
 
