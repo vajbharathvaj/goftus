@@ -1,0 +1,419 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GOFTUS Design System - Dual Theme */
+
+@layer base {
+  /* Default (System) Theme Variables */
+  :root {
+    /* GOFTUS Brand Colors - Same across themes */
+    --goftus-aqua: 173 80% 46%;        /* #17D1C2 */
+    --goftus-aqua-hover: 174 75% 53%;   /* #2FE0CF */
+    --goftus-aqua-focus: 175 70% 66%;   /* #66E9DE */
+    --goftus-orange: 12 67% 54%;        /* #E0582C */
+    --goftus-orange-hover: 12 100% 66%; /* #FF7C54 */
+    --goftus-orange-pressed: 12 67% 38%; /* #C74622 */
+    --goftus-orange-glow: 12 67% 54% / 0.28; /* rgba(224,88,44,.28) */
+    
+    /* Purple for hero workflow panel */
+    --purple: 262 83% 58%;             /* #7C3AED */
+    --purple-2: 262 83% 68%;           /* #A855F7 */
+    
+    --radius: 1.25rem;                  /* 20px radius for premium feel */
+  }
+
+  /* Light Theme */
+  :root[data-theme="light"] {
+    /* Backgrounds */
+    --background: 220 14% 96%;          /* #F6F7F9 */
+    --background-gradient-aqua: 174 75% 94%; /* #EAF6F5 at 8% opacity */
+    --background-gradient-orange: 12 67% 94%; /* #FBEDE7 at 8% opacity */
+    --surface: 0 0% 100%;               /* white */
+    --surface-elevated: 0 0% 100%;      /* white */
+    --muted-surface: 220 13% 97%;       /* #F2F4F7 */
+    
+    /* Text Colors */
+    --foreground: 222 84% 5%;           /* #0F172A - near black headings */
+    --foreground-secondary: 215 25% 27%; /* #334155 - body text */
+    --foreground-muted: 215 16% 47%;     /* #64748B - muted text */
+    
+    /* Component Colors */
+    --primary: var(--goftus-aqua);
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: var(--goftus-aqua-hover);
+    
+    --accent: var(--goftus-orange);
+    --accent-foreground: 0 0% 100%;
+    
+    --card: var(--surface);
+    --card-foreground: var(--foreground);
+    --card-elevated: var(--surface-elevated);
+    
+    --border: 220 13% 91%;              /* #E5E7EB */
+    --border-subtle: 220 13% 91%;       /* #E5E7EB */
+    --input: var(--surface-elevated);
+    --ring: var(--goftus-aqua-focus);
+    
+    --muted: 220 14% 96%;               /* light muted bg */
+    --muted-foreground: var(--foreground-secondary);
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Light Glassmorphism */
+    --glass-bg: 0 0% 100% / 0.52;       /* white with transparency */
+    --glass-border: 220 13% 91% / 0.3;  /* light border */
+    --glass-inner-border: 0 0% 100% / 0.8; /* inner hairline */
+    --glass-blur: blur(20px) saturate(1.15);
+  }
+
+  /* Dark Theme */
+  :root[data-theme="dark"] {
+    /* Backgrounds */
+    --background: 215 28% 5%;           /* #0B0F14 */
+    --surface: 215 25% 9%;              /* #0E141C */
+    --surface-elevated: 215 25% 12%;    /* #141C26 */
+    --muted-surface: 215 25% 15%;       /* darker muted surface */
+    
+    /* Text Colors */
+    --foreground: 220 13% 91%;          /* #E5E7EB - light text */
+    --foreground-secondary: 215 14% 68%; /* #9CA3AF - secondary text */
+    --foreground-muted: 215 16% 42%;     /* #6B7280 - muted text */
+    
+    /* Component Colors */
+    --primary: var(--goftus-aqua);
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: var(--goftus-aqua-hover);
+    
+    --accent: var(--goftus-orange);
+    --accent-foreground: 0 0% 100%;
+    
+    --card: var(--surface);
+    --card-foreground: var(--foreground);
+    --card-elevated: var(--surface-elevated);
+    
+    --border: 215 25% 18%;              /* #1F2937 */
+    --border-subtle: 215 25% 15%;       /* subtle border */
+    --input: var(--surface-elevated);
+    --ring: var(--goftus-aqua-focus);
+    
+    --muted: var(--surface);
+    --muted-foreground: var(--foreground-secondary);
+    
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Purple adjustments for dark theme */
+    --purple: 262 90% 65%;             /* #6F3FF5 - brighter */
+    --purple-2: 252 86% 75%;           /* #A06AF6 - brighter */
+    
+    /* Dark Glassmorphism */
+    --glass-bg: 215 28% 7% / 0.52;      /* dark with transparency */
+    --glass-border: 215 25% 25% / 0.3;  /* dark border */
+    --glass-inner-border: 215 25% 20%; /* inner hairline */
+    --glass-blur: blur(20px) saturate(1.15);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  
+  /* Background gradients that adapt to theme */
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1, "tnum" 1;
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Light theme gradients */
+  :root[data-theme="light"] body {
+    background-image: 
+      radial-gradient(circle at top right, hsl(var(--background-gradient-aqua)) 0%, transparent 50%),
+      radial-gradient(circle at bottom left, hsl(var(--background-gradient-orange)) 0%, transparent 50%);
+  }
+  
+  /* Dark theme gradients */
+  :root[data-theme="dark"] body {
+    background-image: 
+      radial-gradient(circle at top right, hsl(var(--goftus-aqua) / 0.03) 0%, transparent 50%),
+      radial-gradient(circle at bottom left, hsl(var(--goftus-orange) / 0.03) 0%, transparent 50%);
+  }
+  
+  /* Light theme card effects */
+  .card-light {
+    @apply bg-surface border border-border rounded-xl shadow-sm;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+  
+  .card-light:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  
+  /* Orange gradient background */
+  .gradient-bg-orange {
+    background: linear-gradient(135deg, hsl(var(--goftus-orange)), hsl(var(--goftus-orange-hover)));
+  }
+  
+  .gradient-bg-orange-light {
+    background: linear-gradient(135deg, hsl(var(--goftus-orange) / 0.1), hsl(var(--goftus-aqua) / 0.1));
+  }
+  
+  /* Premium heading styles */
+  .heading-xxl {
+    @apply text-7xl lg:text-8xl font-bold tracking-tight leading-none;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Typography Scale with improved hierarchy */
+  .heading-xxl {
+    @apply text-7xl lg:text-8xl font-bold leading-none;
+    font-family: 'Space Grotesk', 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  
+  .heading-xl {
+    @apply text-6xl font-bold leading-tight;
+    font-family: 'Space Grotesk', 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: -0.008em;
+    font-weight: 700;
+  }
+  
+  .heading-lg {
+    @apply text-4xl lg:text-5xl font-semibold leading-tight;
+    font-family: 'Space Grotesk', 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: -0.005em;
+    font-weight: 600;
+  }
+  
+  .heading-md {
+    @apply text-2xl lg:text-3xl font-semibold leading-tight;
+    font-family: 'Space Grotesk', 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: -0.003em;
+    font-weight: 600;
+  }
+  
+  .heading-sm {
+    @apply text-xl font-medium leading-tight;
+    font-family: 'Space Grotesk', 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+    letter-spacing: -0.002em;
+    font-weight: 500;
+  }
+  
+  /* Gradients */
+  .gradient-aqua {
+    background: linear-gradient(135deg, hsl(var(--goftus-aqua)), hsl(var(--goftus-aqua-hover)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-bg-aqua {
+    background: linear-gradient(135deg, hsl(var(--goftus-aqua)), hsl(var(--goftus-aqua-hover)));
+  }
+  
+  /* Enhanced Glassmorphism */
+  .glass {
+    background: hsl(var(--glass-bg));
+    border: 1px solid hsl(var(--glass-border));
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: 
+      0 1px 24px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 hsl(var(--glass-inner-border));
+  }
+  
+  /* Premium glassmorphism for navbar */
+  .glass-nav {
+    background: hsl(var(--glass-bg));
+    border: 1px solid hsl(var(--glass-border));
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: 
+      0 1px 24px rgba(0, 0, 0, 0.12),
+      inset 0 1px 0 hsl(var(--glass-inner-border)),
+      0 0 0 1px hsl(var(--goftus-aqua) / 0.12);
+  }
+  
+  /* Workflow panel specific styles */
+  .workflow-panel {
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  .workflow-node {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .workflow-connector {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+  }
+  
+  /* Glow Effects */
+  .glow-orange {
+    box-shadow: 0 0 20px hsl(var(--goftus-orange-glow));
+  }
+  
+  .underglow-orange {
+    box-shadow: 0 2px 4px hsl(var(--goftus-orange-glow));
+  }
+  
+  /* Enhanced animations with theme awareness */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes magnetic-pull {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-8px); }
+  }
+  
+  @keyframes workflow-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-magnetic {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .animate-magnetic:hover {
+    animation: magnetic-pull 0.2s ease-out forwards;
+  }
+  
+  .animate-workflow-pulse {
+    animation: workflow-pulse 2s ease-in-out infinite;
+  }
+  
+  /* Custom cursor with theme support */
+  .custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid hsl(var(--goftus-aqua));
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.1s ease;
+    backdrop-filter: blur(2px);
+  }
+  
+  .custom-cursor.link-hover {
+    border-color: hsl(var(--goftus-orange));
+    box-shadow: 0 0 10px hsl(var(--goftus-orange-glow));
+  }
+  
+  /* Theme-aware card effects */
+  .card-light {
+    @apply bg-surface border border-border rounded-xl shadow-sm;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-light:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px hsl(var(--foreground) / 0.1), 0 2px 4px -2px hsl(var(--foreground) / 0.1);
+  }
+  
+  /* Gradient utilities */
+  .gradient-aqua-orange {
+    background: linear-gradient(35deg, hsl(var(--goftus-aqua)), hsl(var(--goftus-orange)));
+  }
+  
+  /* Magnetic hover effect */
+  .magnetic-hover {
+    transform: translateY(0px);
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .magnetic-hover:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Card hover effects */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-6px) rotateX(2deg);
+    box-shadow: 0 20px 40px hsl(var(--goftus-aqua) / 0.1);
+  }
+  @layer components {
+  .chip {
+    /* Only keep simple, valid utilities in @apply */
+    @apply absolute p-3 sm:p-4 rounded-lg backdrop-blur-md border border-white/20 shadow-lg;
+
+    /* Move invalid/unsupported stuff to plain CSS */
+    background-color: rgba(255,255,255,0.07); /* instead of bg-white/7 */
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);  /* instead of shadow-[...] */
+  }
+
+  .chip-kicker { @apply text-[10px] sm:text-xs font-medium text-goftus-aqua; }
+  .chip-title  { @apply text-xs sm:text-sm font-semibold text-white; }
+}
+
+/* Plain keyframes/utilities are fine (no @apply needed) */
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+@keyframes spin-slower{to{transform:rotate(360deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.animate-spin-slow{animation:spin-slow 18s linear infinite}
+.animate-spin-slower{animation:spin-slower 24s linear infinite}
+.animate-float{animation:float 6s ease-in-out infinite}
+
+/* Orbit dots (no @apply here) */
+.orbit-dot{position:absolute;width:10px;height:10px;border-radius:9999px;box-shadow:0 0 10px rgba(23,209,194,.5)}
+@keyframes orbitR1{to{transform:rotate(360deg)}}
+@keyframes orbitR2{to{transform:rotate(-360deg)}}
+@keyframes orbitR3{to{transform:rotate(360deg)}}
+.orbit-r1{top:50%;left:50%;transform-origin:-32% -32%;animation:orbitR1 12s linear infinite}
+.orbit-r2{top:50%;left:50%;transform-origin:40% -46%;animation:orbitR2 16s linear infinite}
+.orbit-r3{top:50%;left:50%;transform-origin:-52% 48%;animation:orbitR3 20s linear infinite}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* because content is duplicated */
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-paused {
+  animation: marquee 28s linear infinite;
+  animation-play-state: paused;
+}
+
+/* Optional: hide scrollbars for older browsers if you reuse overflow areas */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+  
+  /* Respect motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    
+    .card-hover:hover {
+      transform: none;
+    }
+    
+    .magnetic-hover:hover {
+      transform: none;
+    }
+  }
+}
+
