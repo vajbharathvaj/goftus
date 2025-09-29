@@ -14,6 +14,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import AIPolicy from "./pages/AIPolicy";
 import NotFound from "./pages/NotFound";
+import SecurityDetails from "./pages/security";
 
 const queryClient = new QueryClient();
 
@@ -28,12 +29,13 @@ const App = () => (
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="services" element={<Services />} />
-              <Route path="products" element={<Products />} />
+              <Route path="features" element={<Products />} />
               <Route path="about" element={<About />} />
               <Route path="contact" element={<Contact />} />
               <Route path="privacy" element={<PrivacyPolicy />} />
               <Route path="terms" element={<Terms />} />
               <Route path="ai-policy" element={<AIPolicy />} />
+              <Route path="security" element={<SecurityDetails />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Route>

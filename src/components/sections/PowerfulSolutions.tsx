@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Boxes, Layers, Network, Workflow, CircuitBoard } from "lucide-react";
 import { ArrowRight, Zap, Database, Shield } from "lucide-react";
 
 const solutions = [
@@ -9,9 +10,9 @@ const solutions = [
     color: "goftus-orange",
   },
   {
-    title: "Data Integration Architecture", 
-    description: "Connect seamlessly to your existing enterprise applications and data sources through pre-built connectors and extensible APIs, while also maintaining freedom to use any AI model without vendor lock-in.",
-    icon: Database,
+    title: "Unified SaaS Platform Architecture", 
+    description: "Orchestrate auth, billing, data, and messaging with pre-built integrations and open APIs—ship faster while keeping clean boundaries and zero vendor lock-in.",
+    icon: Boxes, 
     color: "goftus-aqua",
   },
   {

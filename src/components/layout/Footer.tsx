@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { Instagram, MessageCircle } from "lucide-react"; // ⬅️ updated icons
 
 const footerLinks = {
   company: [
@@ -13,22 +13,29 @@ const footerLinks = {
   resources: [
     { name: "Documentation", href: "/docs" },
     { name: "Blog", href: "/blog" },
-   
+    { name: "Security", href: "/security" },
     { name: "Status", href: "/status" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms & Conditions", href: "/terms" },
     { name: "AI Policy", href: "/ai-policy" },
-    
+    { name: "Security", href: "/security" },
   ],
 };
 
+// ✅ Only Instagram and WhatsApp now
 const socialLinks = [
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com/goftus" },
-  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/goftus" },
-  { name: "GitHub", icon: Github, href: "https://github.com/goftus" },
-  { name: "Email", icon: Mail, href: "mailto:hello@goftus.com" },
+  {
+    name: "Instagram",
+    icon: Instagram,
+    href: "https://instagram.com/goftus_ai",
+  },
+  {
+    name: "WhatsApp",
+    icon: MessageCircle,
+    href: "https://wa.me/916380654780", // +91 6380654780
+  },
 ];
 
 export function Footer() {
@@ -115,11 +122,13 @@ export function Footer() {
                   ))}
                 </ul>
               </div>
+
+              {/* Connect */}
               <div className="mt-10 md:mt-0">
                 <h3 className="text-sm font-semibold leading-6 text-foreground">Connect</h3>
                 <div className="mt-6 flex space-x-4">
                   {socialLinks.map((item) => {
-                    const IconComponent = item.icon;
+                    const Icon = item.icon;
                     return (
                       <a
                         key={item.name}
@@ -127,12 +136,16 @@ export function Footer() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-foreground-secondary hover:text-goftus-aqua transition-colors"
+                        aria-label={item.name}
+                        title={item.name}
                       >
-                        <span className="sr-only">{item.name}</span>
-                        <IconComponent className="h-5 w-5" />
+                        <Icon className="h-5 w-5" />
                       </a>
                     );
                   })}
+                </div>
+                <div className="mt-4 text-xs text-foreground-muted space-y-1">
+                 
                 </div>
               </div>
             </div>

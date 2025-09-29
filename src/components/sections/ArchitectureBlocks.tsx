@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Zap, Shield, Database } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const tabs = [
   { id: "agents", label: "AI AGENTS" },
@@ -113,7 +114,9 @@ export function ArchitectureBlocks() {
               workflows across your organization.
             </p>
             <Button variant="hero" size="lg" className="animate-magnetic">
+              <Link to='/services'>
               Explore Our Platform
+              </Link>
             </Button>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { Services } from "@/components/sections/Services";
 import { Products } from "@/components/sections/Products";
 import { Button } from "@/components/ui/button";
 import { TrendingDown, Zap, TrendingUp } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const metrics = [
   {
@@ -164,7 +165,9 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Button variant="outline" size="lg">
+              <Link to="/security">
               View Security Details
+              </Link>
             </Button>
           </div>
         </div>
@@ -179,7 +182,9 @@ export default function Home() {
               No upfront costs. Pay only for what you use.
             </p>
             <Button variant="hero" size="xl">
-              View Pricing
+              <Link to='products'>
+              View Products
+              </Link>
             </Button>
           </div>
         </div>
@@ -196,7 +201,9 @@ export default function Home() {
                 Get started today and ship AI features that your users will love.
               </p>
               <Button variant="hero" size="xl" className="animate-pulse-glow">
+                <Link to="contact">
                 Get a quote
+                </Link>
               </Button>
               <p className="text-sm text-foreground-muted">
                 5-minute setup • No credit card required • SOC 2 compliant

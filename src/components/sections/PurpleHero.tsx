@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink} from "lucide-react";
+import { Link } from "react-router-dom";
 import GoftusCirclePanel from "@/components/sections/GoftusCirclePanel";
 
 export function PurpleHero() {
@@ -29,11 +30,11 @@ export function PurpleHero() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="hero" size="lg" className="animate-magnetic">
+                <Link to='/contact'>
                 Get a Demo
+                </Link>
               </Button>
-              <Button variant="link" className="text-goftus-aqua hover:text-goftus-aqua-hover">
-                Learn more →
-              </Button>
+             
             </div>
           </div>
 

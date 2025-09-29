@@ -1,67 +1,99 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Code, ExternalLink, PlayCircle } from "lucide-react";
+import { Code, ExternalLink, PlayCircle, Image as ImageIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
+/* --------- Product cards (images not demos) --------- */
 const products = [
   {
-    name: "GOFTUS SDK",
-    description: "Production-ready AI SDK with built-in observability",
-    benefit: "Deploy AI features in minutes, not months",
-    image: "/api/placeholder/400/300"
+    name: "Flagen AI ",
+    description: "Production-ready SDK with built-in auth, keys, and usage metering.",
+    benefit: "Ship AI features in minutes—not months.",
+    image: "/products/flagen.jpg",
   },
   {
-    name: "Vector Pipeline API",
-    description: "Scalable vector search and RAG infrastructure",
-    benefit: "Handle millions of embeddings with ease",
-    image: "/api/placeholder/400/300"
+    name: "Flagen AI — Observability & Guardrails",
+    description:
+      "Full tracing for prompts and tools, red-teaming, evals, rate limits, and policy enforcement.",
+    benefit: "Catch regressions before they reach prod.",
+    image: "/products/flagen2.jpg",
   },
   {
-    name: "AI Workflow Engine",
-    description: "Visual builder for complex AI agent workflows",
-    benefit: "Create intelligent automations without code",
-    image: "/api/placeholder/400/300"
+    name: "Flagen AI — Workflows & Orchestration",
+    description:
+      "Composable steps, function calling, retries, and parallel tools for reliable agent flows.",
+    benefit: "Build robust automations without glue code.",
+    image: "/products/flagen3.jpg",
   },
 ];
 
-const codeExamples = {
-  node: `// Initialize GOFTUS SDK
-import { GOFTUS } from '@goftus/sdk';
+/* --------- Image renderer with graceful fallback --------- */
+function ProductImage({
+  src,
+  alt,
+  caption,
+}: {
+  src: string;
+  alt: string;
+  caption?: string;
+}) {
+  const [errored, setErrored] = useState(false);
 
-const goftus = new GOFTUS({
-  apiKey: process.env.GOFTUS_API_KEY,
-  project: 'my-app'
-});
+  return (
+    <div className="relative aspect-[4/3] rounded-xl overflow-hidden border border-border-subtle bg-surface-elevated">
+      {!errored ? (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover"
+          onError={() => setErrored(true)}
+        />
+      ) : (
+        <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-goftus-aqua/10 to-goftus-aqua/5">
+          <div className="text-center text-foreground-secondary">
+            <ImageIcon className="mx-auto mb-2 h-8 w-8 text-goftus-aqua" />
+            <p className="text-sm">Preview unavailable</p>
+          </div>
+        </div>
+      )}
 
-// Create AI completion
-const response = await goftus.chat.completions.create({
-  model: 'gpt-4',
-  messages: [{ role: 'user', content: 'Hello!' }],
-  stream: true
-});`,
-  python: `# Initialize GOFTUS SDK
-from goftus import GOFTUS
+      {/* soft ring + optional caption */}
+      <div className="pointer-events-none absolute inset-0 ring-1 ring-border-subtle/50 rounded-xl" />
+      {caption && (
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 to-transparent p-3">
+          <p className="text-xs font-medium text-white/90">{caption}</p>
+        </div>
+      )}
+    </div>
+  );
+}
 
-goftus = GOFTUS(
-    api_key=os.getenv("GOFTUS_API_KEY"),
-    project="my-app"
-)
+/* --------- Faux “code” snippet for the GOFTUS tab --------- */
+const codeGoftus = `// GOFTUS — Why teams choose us
+const goftusAdvantages = [
+  "Production-ready SDK with auth & keys",
+  "Observability, tracing & guardrails",
+  "Workflow orchestration for reliable agents",
+  "Model-agnostic — no vendor lock-in",
+  "Usage metering & billing hooks built in",
+  "Enterprise security & governance"
+];
 
-# Create AI completion
-response = goftus.chat.completions.create(
-    model="gpt-4",
-    messages=[{"role": "user", "content": "Hello!"}],
-    stream=True
-)`,
-  curl: `# Create AI completion via cURL
-curl -X POST "https://api.goftus.com/v1/chat/completions" \\
-  -H "Authorization: Bearer $GOFTUS_API_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{
-    "model": "gpt-4",
-    "messages": [{"role": "user", "content": "Hello!"}],
-    "stream": true
-  }'`
-};
+for (const point of goftusAdvantages) {
+  console.log("• " + point);
+}
+
+// Output:
+// • Production-ready SDK with auth & keys
+// • Observability, tracing & guardrails
+// • Workflow orchestration for reliable agents
+// • Model-agnostic — no vendor lock-in
+// • Usage metering & billing hooks built in
+// • Enterprise security & governance
+`;
 
 export function Products() {
   return (
@@ -77,75 +109,77 @@ export function Products() {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {products.map((product, index) => (
+          {products.map((product) => (
             <div key={product.name} className="space-y-6">
-              {/* Product Screenshot Mockup */}
-              <div className="aspect-[4/3] rounded-xl bg-surface-elevated border border-border-subtle p-4">
-                <div className="w-full h-full rounded-lg bg-gradient-to-br from-goftus-aqua/10 to-goftus-aqua/5 flex items-center justify-center">
-                  <div className="text-center space-y-2">
-                    <Code className="w-12 h-12 text-goftus-aqua mx-auto" />
-                    <p className="text-sm font-medium text-foreground">{product.name}</p>
-                    <p className="text-xs text-foreground-secondary">Interactive Demo</p>
-                  </div>
-                </div>
-              </div>
+              <ProductImage
+                src={product.image}
+                alt={`${product.name} preview`}
+                caption={product.name}
+              />
 
               {/* Product Details */}
               <div className="space-y-4">
                 <div>
                   <h3 className="heading-sm text-foreground mb-2">{product.name}</h3>
-                  <p className="text-foreground-secondary mb-3">{product.description}</p>
-                  <p className="text-sm font-medium text-goftus-aqua">✨ {product.benefit}</p>
+                  <p className="text-foreground-secondary mb-3">
+                    {product.description}
+                  </p>
+                  <p className="text-sm font-medium text-goftus-aqua">
+                    ✨ {product.benefit}
+                  </p>
                 </div>
 
                 <div className="flex space-x-3">
                   <Button variant="hero" size="sm">
                     <PlayCircle className="w-4 h-4 mr-2" />
+                    <Link to="https://flagenai.goftus.com">
                     Try demo
+                    </Link>
                   </Button>
-                  <Button variant="outline" size="sm">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Docs
-                  </Button>
+                 
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Code Example */}
+        {/* Code Example (GOFTUS overview – no real SDK/API needed) */}
         <div className="bg-card-elevated border border-border-subtle rounded-2xl p-8">
-          <div className="mb-6">
-            <h3 className="heading-sm text-foreground mb-2">Get started in seconds</h3>
-            <p className="text-foreground-secondary">
-              Integrate AI into your application with just a few lines of code
-            </p>
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h3 className="heading-sm text-foreground mb-2">Get started in seconds</h3>
+              <p className="text-foreground-secondary">
+                See what you get with GOFTUS at a glance — same beautiful panel, no SDK required.
+              </p>
+            </div>
+            <span className="text-[11px] px-2 py-1 rounded bg-white/10 border border-white/15 text-white/80">
+              Overview • No integration needed
+            </span>
           </div>
 
-          <Tabs defaultValue="node" className="w-full">
-            <TabsList className="grid w-full max-w-md grid-cols-3 mb-6">
-              <TabsTrigger value="node">Node.js</TabsTrigger>
-              <TabsTrigger value="python">Python</TabsTrigger>
-              <TabsTrigger value="curl">cURL</TabsTrigger>
+          <Tabs defaultValue="goftus" className="w-full">
+            <TabsList className="w-fit mb-6">
+              <TabsTrigger value="goftus">GOFTUS</TabsTrigger>
             </TabsList>
-            
-            {Object.entries(codeExamples).map(([key, code]) => (
-              <TabsContent key={key} value={key}>
-                <div className="relative">
-                  <pre className="bg-surface border border-border-subtle rounded-lg p-6 overflow-x-auto text-sm">
-                    <code className="text-foreground-secondary">{code}</code>
-                  </pre>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="absolute top-2 right-2 h-8 w-8 p-0"
-                    onClick={() => navigator.clipboard.writeText(code)}
-                  >
-                    <Code className="w-4 h-4" />
-                  </Button>
-                </div>
-              </TabsContent>
-            ))}
+
+            <TabsContent value="goftus">
+              <div className="relative">
+                <pre className="bg-surface border border-border-subtle rounded-lg p-6 overflow-x-auto text-sm">
+                  <code className="text-foreground-secondary whitespace-pre-wrap">
+                    {codeGoftus}
+                  </code>
+                </pre>
+                <Button
+                  aria-label="Copy code"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute top-2 right-2 h-8 w-8 p-0"
+                  onClick={() => navigator.clipboard.writeText(codeGoftus)}
+                >
+                  <Code className="w-4 h-4" />
+                </Button>
+              </div>
+            </TabsContent>
           </Tabs>
         </div>
       </div>

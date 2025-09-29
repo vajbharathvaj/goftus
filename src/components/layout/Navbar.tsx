@@ -7,7 +7,7 @@ import { useState } from "react";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
-  { name: "Products", href: "/products" },
+  { name: "Features", href: "/features" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
@@ -49,11 +49,9 @@ export function Navbar() {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center space-x-3">
           <ThemeToggle />
-          <Button variant="ghost" size="sm" className="animate-magnetic hover:text-goftus-aqua">
-            Login
-          </Button>
+         
           <Button variant="hero" size="sm" className="animate-magnetic">
-            Get a quote
+            <Link to="/contact">Book A Call</Link>
           </Button>
         </div>
 
@@ -92,11 +90,9 @@ export function Navbar() {
                 <span className="text-sm text-foreground-secondary">Theme</span>
                 <ThemeToggle />
               </div>
-              <Button variant="ghost" size="sm" className="animate-magnetic">
-                Login
-              </Button>
+             
               <Button variant="hero" size="sm" className="animate-magnetic">
-                Get a quote
+                 <Link to="/contact">Book A Call</Link>
               </Button>
             </div>
           </div>

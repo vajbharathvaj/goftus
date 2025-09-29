@@ -6,19 +6,19 @@ const services = [
     icon: Brain,
     title: "AI Product Engineering",
     description: "From idea to production: we design, implement, and operate AI features that feel like magic.",
-    href: "/services#ai-product-engineering"
+    href: "/services"
   },
   {
     icon: Database,
     title: "Data & RAG Pipelines",
     description: "Build intelligent data workflows that power your AI applications with accuracy and speed.",
-    href: "/services#data-pipelines"
+    href: "/services"
   },
   {
     icon: Settings,
     title: "MLOps & Observability",
     description: "Monitor, optimize, and scale your AI systems with confidence and complete visibility.",
-    href: "/services#mlops"
+    href: "/services"
   },
 ];
 
