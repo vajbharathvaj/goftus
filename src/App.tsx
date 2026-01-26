@@ -16,7 +16,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import AIPolicy from "./pages/AIPolicy";
 import NotFound from "./pages/NotFound";
-import SecurityDetails from "./pages/security";
+import SecurityDetails from "./pages/Security";
 import Blogs from "./pages/Blogs";
 import BlogPost from "./pages/BlogPost";
 import AdminLogin from "./pages/admin/AdminLogin";
