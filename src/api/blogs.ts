@@ -20,7 +20,8 @@ export type BlogListResponse = {
   total?: number;
 };
 
-const API_BASE = "/api";
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 
 const parseJson = async (response: Response) => {
   if (!response.ok) {
