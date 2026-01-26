@@ -24,12 +24,12 @@ const services = [
 
 export function Services() {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="text-center space-y-4 mb-16">
-          <h2 className="heading-lg text-foreground">What GOFTUS Does</h2>
-          <p className="text-foreground-secondary text-lg max-w-2xl mx-auto">
+          <h2 className="heading-lg text-white">What GOFTUS Does</h2>
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
             From idea to production: we design, implement, and operate AI features that feel like magic.
           </p>
         </div>
@@ -41,19 +41,19 @@ export function Services() {
             return (
               <div
                 key={service.title}
-                className="group card-hover bg-card-elevated border border-border-subtle rounded-2xl p-8 hover:border-goftus-aqua/20"
+                className="group card-hover rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_25px_70px_rgba(14,165,233,0.16)] backdrop-blur-2xl hover:border-cyan-400/40"
               >
                 <div className="mb-6">
-                  <div className="w-12 h-12 rounded-lg bg-goftus-aqua/10 flex items-center justify-center mb-4">
-                    <IconComponent className="w-6 h-6 text-goftus-aqua" />
+                  <div className="w-12 h-12 rounded-lg border border-cyan-400/30 bg-cyan-400/10 flex items-center justify-center mb-4">
+                    <IconComponent className="w-6 h-6 text-cyan-200" />
                   </div>
-                  <h3 className="heading-sm text-foreground mb-3">{service.title}</h3>
-                  <p className="text-foreground-secondary leading-relaxed">{service.description}</p>
+                  <h3 className="heading-sm text-white mb-3">{service.title}</h3>
+                  <p className="text-slate-300 leading-relaxed">{service.description}</p>
                 </div>
                 
                 <Button
                   variant="ghost"
-                  className="group-hover:text-goftus-aqua transition-colors p-0 h-auto font-medium"
+                  className="group-hover:text-cyan-200 transition-colors p-0 h-auto font-medium text-slate-300"
                   asChild
                 >
                   <a href={service.href}>

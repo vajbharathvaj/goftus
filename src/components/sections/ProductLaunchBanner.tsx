@@ -38,26 +38,26 @@ export function ProductLaunchBanner({
   return (
     <div className="sticky top-6 z-[60] mx-auto max-w-5xl px-4" aria-live="polite">
       <div className="relative">
-        <div className="pointer-events-none absolute -inset-7 rounded-3xl bg-goftus-aqua/20 blur-2xl animate-[pulseGlow_4s_ease-in-out_infinite]" />
-        <div className="relative p-[1.6px] rounded-2xl bg-gradient-to-r from-goftus-aqua via-goftus-aqua/40 to-transparent">
-          <div className="relative rounded-2xl bg-[#0b1417]/85 backdrop-blur-xl border border-white/10 overflow-hidden shadow-[0_8px_50px_rgba(0,0,0,.45)]">
-            <div className="pointer-events-none absolute -inset-20 opacity-25 blur-3xl bg-[radial-gradient(80%_60%_at_15%_10%,#15d0c1_0%,transparent_60%),radial-gradient(70%_60%_at_85%_90%,#0ea5a3_0%,transparent_55%)]" />
+        <div className="pointer-events-none absolute -inset-7 rounded-3xl bg-cyan-400/20 blur-2xl animate-[pulseGlow_4s_ease-in-out_infinite]" />
+        <div className="relative p-[1.6px] rounded-2xl bg-gradient-to-r from-cyan-400 via-cyan-300/40 to-transparent">
+          <div className="relative rounded-2xl bg-[#050a1f]/85 backdrop-blur-xl border border-white/10 overflow-hidden shadow-[0_8px_50px_rgba(0,0,0,.45)]">
+            <div className="pointer-events-none absolute -inset-20 opacity-25 blur-3xl bg-[radial-gradient(80%_60%_at_15%_10%,#38BDF8_0%,transparent_60%),radial-gradient(70%_60%_at_85%_90%,#0EA5E9_0%,transparent_55%)]" />
             <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between px-5 py-4 md:px-7 md:py-5">
               <div className="flex items-start gap-3 md:gap-4">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-goftus-aqua text-background shadow-md">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-cyan-400 text-slate-950 shadow-md">
                   <Rocket className="h-5 w-5" />
                 </span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="rounded-full bg-goftus-aqua/15 text-goftus-aqua px-2 py-0.5 text-[11px] font-semibold">
+                    <span className="rounded-full bg-cyan-400/15 text-cyan-200 px-2 py-0.5 text-[11px] font-semibold">
                       Product launch
                     </span>
                   </div>
-                  <h3 className="mt-1 text-lg md:text-xl font-extrabold leading-tight bg-gradient-to-r from-goftus-aqua via-white to-goftus-aqua/80 bg-clip-text text-transparent">
+                  <h3 className="mt-1 text-lg md:text-xl font-extrabold leading-tight bg-gradient-to-r from-cyan-300 via-white to-cyan-200 bg-clip-text text-transparent">
                     {product} is live
                   </h3>
-                  <p className="mt-1 text-[13px] md:text-sm text-foreground/80">
-                    {message}. <span className="text-foreground/60">Try it now.</span>
+                  <p className="mt-1 text-[13px] md:text-sm text-slate-200/80">
+                    {message}. <span className="text-slate-200/60">Try it now.</span>
                   </p>
                 </div>
               </div>
@@ -69,7 +69,7 @@ export function ProductLaunchBanner({
                   // links in a new tab safely
                   target={isExternal ? "_blank" : undefined}
                   rel={isExternal ? "noopener noreferrer" : undefined}
-                  className="group relative inline-flex h-10 items-center rounded-full bg-goftus-aqua px-4 md:px-5 font-semibold text-background shadow-[0_10px_30px_rgba(23,209,194,.35)] focus:outline-none focus:ring-2 focus:ring-goftus-aqua/50"
+                  className="group relative inline-flex h-10 items-center rounded-full bg-cyan-400 px-4 md:px-5 font-semibold text-slate-950 shadow-[0_10px_30px_rgba(56,189,248,.35)] focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
                   aria-label={`Try ${product}`}
                 >
                   <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-full">
@@ -83,7 +83,7 @@ export function ProductLaunchBanner({
                   size="icon"
                   onClick={handleDismiss}
                   aria-label="Dismiss product announcement"
-                  className="h-9 w-9 rounded-lg hover:bg-foreground/10"
+                  className="h-9 w-9 rounded-lg hover:bg-white/10"
                 >
                   <X className="h-4 w-4" />
                 </Button>

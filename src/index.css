@@ -11,10 +11,10 @@
     --goftus-aqua: 173 80% 46%;        /* #17D1C2 */
     --goftus-aqua-hover: 174 75% 53%;   /* #2FE0CF */
     --goftus-aqua-focus: 175 70% 66%;   /* #66E9DE */
-    --goftus-orange: 12 67% 54%;        /* #E0582C */
-    --goftus-orange-hover: 12 100% 66%; /* #FF7C54 */
-    --goftus-orange-pressed: 12 67% 38%; /* #C74622 */
-    --goftus-orange-glow: 12 67% 54% / 0.28; /* rgba(224,88,44,.28) */
+    --goftus-orange: 199 89% 48%;        /* #0EA5E9 */
+    --goftus-orange-hover: 200 93% 58%;  /* #38BDF8 */
+    --goftus-orange-pressed: 200 84% 38%; /* #0369A1 */
+    --goftus-orange-glow: 199 89% 48% / 0.28; /* rgba(14,165,233,.28) */
     
     /* Purple for hero workflow panel */
     --purple: 262 83% 58%;             /* #7C3AED */
@@ -28,7 +28,7 @@
     /* Backgrounds */
     --background: 220 14% 96%;          /* #F6F7F9 */
     --background-gradient-aqua: 174 75% 94%; /* #EAF6F5 at 8% opacity */
-    --background-gradient-orange: 12 67% 94%; /* #FBEDE7 at 8% opacity */
+    --background-gradient-orange: 200 90% 94%; /* #E0F2FE at 8% opacity */
     --surface: 0 0% 100%;               /* white */
     --surface-elevated: 0 0% 100%;      /* white */
     --muted-surface: 220 13% 97%;       /* #F2F4F7 */
@@ -155,7 +155,7 @@
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   }
   
-  /* Orange gradient background */
+  /* Accent gradient background */
   .gradient-bg-orange {
     background: linear-gradient(135deg, hsl(var(--goftus-orange)), hsl(var(--goftus-orange-hover)));
   }
@@ -426,4 +426,3 @@
     }
   }
 }
-

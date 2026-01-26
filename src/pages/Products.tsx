@@ -6,43 +6,44 @@ import { CheckCircle, Copy } from "lucide-react";
 
 // Your existing products list (unchanged)
 const products = [
+
   {
-    id: "goftus-sdk",
-    name: "GOFTUS SDK",
+    id: "callflow",
+    name: "CallFlow AI",
     description:
-      "Production-ready AI SDK with built-in observability and monitoring",
+      "An intelligent call analysis platform that transforms customer conversations into actionable business insights in real time.",
     image: "/api/placeholder/600/400",
     benefits: [
-      "Deploy AI features in minutes, not months",
-      "Built-in monitoring and cost tracking",
-      "99.9% uptime SLA with automatic failover",
+      "Automatically transcribe and analyze sales and support calls",
+      "Detect customer intent, objections, and sentiment instantly",
+      "Improve conversions and customer experience with AI-driven insights",
+    ],
+    flow: [
+      "Customer calls are securely captured or uploaded",
+      "AI transcribes and analyzes conversations in real time",
+      "Key insights, summaries, and performance signals appear in a unified dashboard",
     ],
   },
+
   {
-    id: "vector-pipeline",
-    name: "Vector Pipeline API",
+    id: "saim-ai",
+    name: "Saim AI – Business Plan Maker",
     description:
-      "Scalable vector search and RAG infrastructure that handles millions of documents",
+      "An AI-powered business planning tool that helps founders and teams turn ideas into structured, investor-ready business plans.",
     image: "/api/placeholder/600/400",
     benefits: [
-      "Handle millions of embeddings with sub-100ms queries",
-      "Automatic data sync and real-time updates",
-      "Multi-modal search (text, images, audio)",
+      "Create complete business plans in minutes, not weeks",
+      "Built-in market analysis, positioning, and growth strategy",
+      "Clear, professional outputs ready for investors and stakeholders",
     ],
-  },
-  {
-    id: "workflow-engine",
-    name: "AI Workflow Engine",
-    description:
-      "Visual builder for complex AI agent workflows and automation",
-    image: "/api/placeholder/600/400",
-    benefits: [
-      "Create intelligent automations without code",
-      "Multi-agent coordination and task distribution",
-      "Human-in-the-loop approval workflows",
+    flow: [
+      "User describes their idea or existing business in simple steps",
+      "AI analyzes the market, competition, and business model",
+      "A structured, editable business plan is generated instantly",
     ],
   },
 ];
+
 
 // Build a nice “code-like” snippet per product
 function buildGoftusSnippet(p: {
@@ -127,7 +128,7 @@ export default function Products() {
                   <div className="space-y-3">
                     {product.benefits.map((benefit, i) => (
                       <div key={i} className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-goftus-aqua mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-5 h-5 text-cyan-200 mt-0.5 flex-shrink-0" />
                         <span className="text-foreground-secondary">{benefit}</span>
                       </div>
                     ))}
@@ -189,13 +190,14 @@ export default function Products() {
           </div>
 
           <div className="bg-card-elevated border border-border-subtle rounded-2xl overflow-hidden">
-            <div className="grid grid-cols-3 gap-px bg-border-subtle">
+            <div className="overflow-x-auto">
+              <div className="grid min-w-[720px] grid-cols-3 gap-px bg-border-subtle">
               {/* Header */}
               <div className="bg-card-elevated p-6">
                 <h3 className="heading-sm text-foreground">Feature</h3>
               </div>
               <div className="bg-card-elevated p-6 text-center">
-                <div className="w-8 h-8 gradient-bg-aqua rounded-lg flex items-center justify-center mx-auto mb-2">
+                <div className="w-8 h-8 bg-cyan-400 rounded-lg flex items-center justify-center mx-auto mb-2">
                   <span className="text-white font-bold text-sm">G</span>
                 </div>
                 <h3 className="heading-sm text-foreground">GOFTUS</h3>
@@ -212,7 +214,7 @@ export default function Products() {
                   </div>
                   <div className="bg-card-elevated p-6 text-center">
                     {row.goftus ? (
-                      <CheckCircle className="w-5 h-5 text-goftus-aqua mx-auto" />
+                      <CheckCircle className="w-5 h-5 text-cyan-200 mx-auto" />
                     ) : (
                       <span className="text-foreground-muted">—</span>
                     )}
@@ -226,6 +228,7 @@ export default function Products() {
                   </div>
                 </React.Fragment>
               ))}
+              </div>
             </div>
           </div>
 

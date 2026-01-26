@@ -1,94 +1,141 @@
-"use client";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
-import React from "react";
+const orbitRings = [
+  {
+    ratio: 0.34,
+    duration: 26,
+    reverse: false,
+    items: [
+      { src: "/images/rings/artificial-intelligence.png", alt: "AI icon", size: "h-12 w-12" },
+      { src: "/images/rings/chat-gpt.png", alt: "Chat icon", size: "h-11 w-11" },
+      { src: "/images/rings/wearable-technology.png", alt: "Wearable icon", size: "h-12 w-12" },
+      { src: "/images/rings/chat-gpt.png", alt: "Chat icon", size: "h-11 w-11" },
+    ],
+  },
+  {
+    ratio: 0.48,
+    duration: 38,
+    reverse: true,
+    items: [
+      { src: "/images/rings/artificial-intelligence%20(1).png", alt: "AI icon", size: "h-12 w-12" },
+      { src: "/images/rings/deep-learning.png", alt: "Deep learning icon", size: "h-11 w-11" },
+      { src: "/images/rings/settings.png", alt: "Settings icon", size: "h-12 w-12" },
+      { src: "/images/rings/deep-learning.png", alt: "Deep learning icon", size: "h-11 w-11" },
+    ],
+  },
+];
 
 const GoftusCirclePanel: React.FC = () => {
+  const reduceMotion = useReducedMotion();
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [containerSize, setContainerSize] = useState(420);
+  const iconFilter =
+    "brightness(0) saturate(100%) invert(78%) sepia(20%) saturate(3372%) hue-rotate(162deg) brightness(101%) contrast(101%)";
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element || typeof ResizeObserver === "undefined") {
+      return;
+    }
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentRect.width) {
+          setContainerSize(entry.contentRect.width);
+        }
+      }
+    });
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  const rings = useMemo(
+    () =>
+      orbitRings.map((ring) => ({
+        ...ring,
+        radius: Math.round(containerSize * ring.ratio),
+      })),
+    [containerSize]
+  );
+
   return (
-    <div className="relative aspect-square w-full max-w-[640px]">
-      {/* Ambient glow (AQUA ONLY – no orange tint) */}
+    <div className="relative flex items-center justify-center">
       <div
-        className="pointer-events-none absolute -inset-[10%] rounded-[48px] opacity-90
-                   bg-[radial-gradient(110%_80%_at_65%_35%,rgba(23,209,194,.16),transparent_60%)]"
-      />
+        ref={containerRef}
+        className="relative h-[420px] w-[420px] sm:h-[480px] sm:w-[480px] lg:h-[520px] lg:w-[520px]"
+      >
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute -inset-16 rounded-full bg-[radial-gradient(circle_at_30%_30%,_rgba(56,189,248,0.35),_rgba(14,116,144,0.15),_transparent_70%)] blur-2xl" />
+          <div className="absolute -inset-6 rounded-full bg-[radial-gradient(circle,_rgba(34,211,238,0.25),_transparent_65%)]" />
+          <img
+            src="/images/image_1.png"
+            alt="GOFTUS"
+            className="relative w-[220px] max-w-full object-contain"
+          />
+        </div>
+        {rings.map((ring, ringIndex) => {
+          const animate = reduceMotion ? {} : { rotate: ring.reverse ? -360 : 360 };
+          const transition = reduceMotion
+            ? undefined
+            : { duration: ring.duration, repeat: Infinity, ease: "linear" };
 
-      {/* Deep disk */}
-      <div className="absolute inset-0 rounded-full bg-[#09161B]
-                      shadow-[inset_0_0_0_2px_rgba(23,209,194,.18),0_40px_100px_rgba(0,0,0,.55)]" />
+          return (
+            <div
+              key={`ring-${ringIndex}`}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+              <motion.div
+                className="relative rounded-full border border-white/10"
+                animate={animate}
+                transition={transition}
+                style={{
+                  width: ring.radius * 2,
+                  height: ring.radius * 2,
+                }}
+              >
+                {ring.items.map((item, index) => {
+                  const angle = (360 / ring.items.length) * index;
+                  const radians = (angle * Math.PI) / 180;
+                  const x = Math.cos(radians) * ring.radius;
+                  const y = Math.sin(radians) * ring.radius;
+                  return (
+                    <div
+                      key={`${item.src}-${index}`}
+                      className="absolute"
+                      style={{
+                        left: `calc(50% + ${x}px)`,
+                        top: `calc(50% + ${y}px)`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <motion.div
+                        className="p-0"
+                        whileHover={
+                          reduceMotion
+                            ? undefined
+                            : {
+                                y: -6,
+                                filter: "drop-shadow(0 0 24px rgba(56,189,248,0.55))",
+                              }
+                        }
+                      >
+                        <img
+                          src={item.src}
+                          alt={item.alt}
+                          className={`${item.size} object-contain drop-shadow-[0_0_16px_rgba(56,189,248,0.65)]`}
+                          style={{ filter: iconFilter }}
+                        />
+                      </motion.div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            </div>
+          );
+        })}
 
-      {/* Aqua rim */}
-      <div className="absolute inset-[12px] rounded-full border-2 border-[#17D1C2]/60
-                      shadow-[0_0_60px_#17D1C24d,0_0_4px_#17D1C2]" />
-
-      {/* Concentric rings */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="w-[112%] h-[112%] rounded-full border-2 border-dashed border-[#17D1C2]/40 animate-spin"
-             style={{ animationDuration: "18s" }} />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="w-[132%] h-[132%] rounded-full border border-[#17D1C2]/20 animate-spin"
-             style={{ animationDuration: "22s", animationDirection: "reverse" }} />
-      </div>
-      <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="w-[150%] h-[150%] rounded-full border border-[#17D1C2]/14 animate-spin"
-             style={{ animationDuration: "28s" }} />
-      </div>
-
-      {/* Orbiting dots (keep a touch of orange for brand accent) */}
-      <div className="absolute inset-0 animate-spin z-20" style={{ animationDuration: "12s" }}>
-        <span
-          className="absolute left-1/2 top-1/2 h-[10px] w-[10px] rounded-full bg-[#17D1C2]
-                     shadow-[0_0_12px_#17D1C2]"
-          style={{ transform: "translate(-50%,-50%) translateX(145px)" }}
-        />
-      </div>
-
-      <div className="absolute inset-0 animate-spin z-20" style={{ animationDuration: "16s", animationDirection: "reverse" }}>
-        <span
-          className="absolute left-1/2 top-1/2 h-[10px] w-[10px] rounded-full bg-[#E0582C]
-                     shadow-[0_0_12px_#E0582C]"
-          style={{ transform: "translate(-50%,-50%) translateX(115px)" }}
-        />
-      </div>
-
-      <div className="absolute inset-0 animate-spin z-20" style={{ animationDuration: "20s" }}>
-        <span
-          className="absolute left-1/2 top-1/2 h-[10px] w-[10px] rounded-full bg-[#17D1C2]
-                     shadow-[0_0_12px_#17D1C2]"
-          style={{ transform: "translate(-50%,-50%) translateX(175px)" }}
-        />
-      </div>
-
-      {/* Center GOFTUS logo (floating) */}
-      <div className="absolute inset-0 flex items-center justify-center p-8 z-30">
-        {/* Use your actual path; this is the one you’ve been using */}
-        <img
-          src="/lovable-uploads/goftus-logo.png"
-          alt="GOFTUS"
-          className="relative z-[60] w-[72%] max-w-[420px] h-auto object-contain
-               drop-shadow-[0_0_32px_rgba(23,209,194,.55)] animate-float"
-        />
-      </div>
-
-      {/* Glass chips */}
-      <div className="absolute top-2 right-2 sm:top-4 sm:right-4 p-3 sm:p-4 rounded-lg
-                      bg-white/10 backdrop-blur-md border border-white/20 shadow-lg z-30
-                      hover:shadow-xl hover:border-[#17D1C2]/60 transition-all duration-300">
-        <p className="text-[10px] sm:text-xs font-medium text-[#17D1C2]">Advanced Algorithms</p>
-        <p className="text-xs sm:text-sm font-semibold text-white">Neural Networks</p>
-      </div>
-
-      <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 p-3 sm:p-4 rounded-lg
-                      bg-white/10 backdrop-blur-md border border-white/20 shadow-lg z-30
-                      hover:shadow-xl hover:border-[#17D1C2]/60 transition-all duration-300">
-        <p className="text-[10px] sm:text-xs font-medium text-[#17D1C2]">Language Processing</p>
-        <p className="text-xs sm:text-sm font-semibold text-white">RAG & Embeddings</p>
-      </div>
-
-      <div className="absolute left-2 top-1/2 -translate-y-1/2 p-3 sm:p-4 rounded-lg
-                      bg-white/10 backdrop-blur-md border border-white/20 shadow-lg z-30
-                      hover:shadow-xl hover:border-[#17D1C2]/60 transition-all duration-300">
-        <p className="text-[10px] sm:text-xs font-medium text-[#17D1C2]">Operations</p>
-        <p className="text-xs sm:text-sm font-semibold text-white">MLOps & Observability</p>
       </div>
     </div>
   );

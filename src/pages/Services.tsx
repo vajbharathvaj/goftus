@@ -187,12 +187,12 @@ export default function Services() {
               return (
                 <div
                   key={service.id}
-                  className="group card-hover bg-card-elevated border border-border-subtle rounded-2xl p-8 cursor-pointer hover:border-goftus-aqua/30"
+                  className="group card-hover bg-card-elevated border border-border-subtle rounded-2xl p-8 cursor-pointer hover:border-cyan-400/40"
                   onClick={() => setSelectedService(service.id)}
                 >
                   <div className="mb-6">
-                    <div className="w-12 h-12 rounded-lg bg-goftus-aqua/10 flex items-center justify-center mb-4">
-                      <IconComponent className="w-6 h-6 text-goftus-aqua" />
+                    <div className="w-12 h-12 rounded-lg bg-cyan-400/10 flex items-center justify-center mb-4 border border-cyan-400/30">
+                      <IconComponent className="w-6 h-6 text-cyan-200" />
                     </div>
                     <h3 className="heading-sm text-foreground mb-2">{service.title}</h3>
                     <p className="text-foreground-secondary text-sm mb-4">{service.subtitle}</p>
@@ -203,7 +203,7 @@ export default function Services() {
                   
                   <Button
                     variant="ghost"
-                    className="group-hover:text-goftus-aqua transition-colors p-0 h-auto font-medium text-sm"
+                    className="group-hover:text-cyan-200 transition-colors p-0 h-auto font-medium text-sm"
                   >
                     Learn more →
                   </Button>
@@ -220,8 +220,8 @@ export default function Services() {
           <div className="w-full max-w-4xl bg-card-elevated border border-border-subtle rounded-2xl p-8 max-h-[80vh] overflow-y-auto">
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-lg bg-goftus-aqua/10 flex items-center justify-center">
-                  <service.icon className="w-6 h-6 text-goftus-aqua" />
+                <div className="w-12 h-12 rounded-lg bg-cyan-400/10 flex items-center justify-center border border-cyan-400/30">
+                  <service.icon className="w-6 h-6 text-cyan-200" />
                 </div>
                 <div>
                   <h2 className="heading-md text-foreground">{service.title}</h2>
@@ -245,7 +245,7 @@ export default function Services() {
                   <ul className="space-y-2">
                     {service.scope.map((item, index) => (
                       <li key={index} className="flex items-start space-x-2">
-                        <CheckCircle className="w-4 h-4 text-goftus-aqua mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-cyan-200 mt-0.5 flex-shrink-0" />
                         <span className="text-foreground-secondary text-sm">{item}</span>
                       </li>
                     ))}
@@ -257,7 +257,7 @@ export default function Services() {
                   <ul className="space-y-2">
                     {service.deliverables.map((item, index) => (
                       <li key={index} className="flex items-start space-x-2">
-                        <CheckCircle className="w-4 h-4 text-goftus-aqua mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-cyan-200 mt-0.5 flex-shrink-0" />
                         <span className="text-foreground-secondary text-sm">{item}</span>
                       </li>
                     ))}
@@ -270,7 +270,7 @@ export default function Services() {
                 <div>
                   <h3 className="heading-sm text-foreground mb-4">Timeline</h3>
                   <div className="bg-surface rounded-lg p-4">
-                    <div className="text-2xl font-bold text-goftus-aqua mb-1">{service.timeline}</div>
+                    <div className="text-2xl font-bold text-cyan-200 mb-1">{service.timeline}</div>
                     <p className="text-foreground-secondary text-sm">Typical delivery time</p>
                   </div>
                 </div>
@@ -280,7 +280,7 @@ export default function Services() {
                   <ul className="space-y-2">
                     {service.successMetrics.map((metric, index) => (
                       <li key={index} className="flex items-start space-x-2">
-                        <CheckCircle className="w-4 h-4 text-goftus-aqua mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-cyan-200 mt-0.5 flex-shrink-0" />
                         <span className="text-foreground-secondary text-sm">{metric}</span>
                       </li>
                     ))}

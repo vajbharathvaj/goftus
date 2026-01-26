@@ -1,7 +1,8 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Instagram, MessageCircle } from "lucide-react"; // ⬅️ updated icons
+import { Instagram, MessageCircle } from "lucide-react"; // icons
 
 const footerLinks = {
   company: [
@@ -24,7 +25,6 @@ const footerLinks = {
   ],
 };
 
-// ✅ Only Instagram and WhatsApp now
 const socialLinks = [
   {
     name: "Instagram",
@@ -34,11 +34,49 @@ const socialLinks = [
   {
     name: "WhatsApp",
     icon: MessageCircle,
-    href: "https://wa.me/916380654780", // +91 6380654780
+    href: "https://wa.me/916380654780",
   },
 ];
 
 export function Footer() {
+  // 🧠 State management
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // 📬 Subscription handler
+  const handleSubscribe = async () => {
+    if (!email || !email.includes("@")) {
+      setMessage("❌ Please enter a valid email address.");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/subscribe`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setMessage("✅ You’ve successfully subscribed! Check your inbox 🎉");
+        setEmail("");
+      } else {
+        setMessage(`❌ ${data.error || "Subscription failed."}`);
+      }
+    } catch (err) {
+      console.error("Subscribe Error:", err);
+      setMessage("⚠️ Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <footer className="bg-surface border-t border-border-subtle">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
@@ -49,23 +87,53 @@ export function Footer() {
               <div className="w-8 h-8 gradient-bg-aqua rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">G</span>
               </div>
-              <span className="font-display font-bold text-lg text-foreground">GOFTUS</span>
+              <span className="font-display font-bold text-lg text-foreground">
+                GOFTUS
+              </span>
             </div>
+
             <p className="text-sm leading-6 text-foreground-secondary max-w-md">
-              Build, ship, and scale AI—without the boilerplate. Transparent & reliable AI solutions for modern products.
+              Build, ship, and scale AI—without the boilerplate. Transparent &
+              reliable AI solutions for modern products.
             </p>
+
+            {/* Newsletter Section */}
             <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-foreground">Stay updated</h4>
+              <h4 className="text-sm font-semibold text-foreground">
+                Stay updated
+              </h4>
               <div className="flex space-x-2">
                 <Input
                   placeholder="Enter your email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={loading}
                   className="flex-1 bg-surface-elevated border-border"
                 />
-                <Button variant="hero" size="sm">
-                  Subscribe
+                <Button
+                  variant="hero"
+                  size="sm"
+                  disabled={loading || message.startsWith("✅")}
+                  onClick={handleSubscribe}
+                >
+                  {loading ? "Subscribing..." : "Subscribe"}
                 </Button>
               </div>
+
+              {/* Feedback message */}
+              {message && (
+                <p
+                  className={`text-xs mt-2 ${
+                    message.startsWith("✅")
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
+                  {message}
+                </p>
+              )}
+
               <p className="text-xs text-foreground-muted">
                 Get the latest updates on AI solutions and product releases.
               </p>
@@ -76,7 +144,9 @@ export function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-foreground">Company</h3>
+                <h3 className="text-sm font-semibold leading-6 text-foreground">
+                  Company
+                </h3>
                 <ul className="mt-6 space-y-4">
                   {footerLinks.company.map((item) => (
                     <li key={item.name}>
@@ -90,8 +160,11 @@ export function Footer() {
                   ))}
                 </ul>
               </div>
+
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-foreground">Resources</h3>
+                <h3 className="text-sm font-semibold leading-6 text-foreground">
+                  Resources
+                </h3>
                 <ul className="mt-6 space-y-4">
                   {footerLinks.resources.map((item) => (
                     <li key={item.name}>
@@ -106,9 +179,12 @@ export function Footer() {
                 </ul>
               </div>
             </div>
+
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-foreground">Legal</h3>
+                <h3 className="text-sm font-semibold leading-6 text-foreground">
+                  Legal
+                </h3>
                 <ul className="mt-6 space-y-4">
                   {footerLinks.legal.map((item) => (
                     <li key={item.name}>
@@ -125,7 +201,9 @@ export function Footer() {
 
               {/* Connect */}
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-foreground">Connect</h3>
+                <h3 className="text-sm font-semibold leading-6 text-foreground">
+                  Connect
+                </h3>
                 <div className="mt-6 flex space-x-4">
                   {socialLinks.map((item) => {
                     const Icon = item.icon;
@@ -143,9 +221,6 @@ export function Footer() {
                       </a>
                     );
                   })}
-                </div>
-                <div className="mt-4 text-xs text-foreground-muted space-y-1">
-                 
                 </div>
               </div>
             </div>

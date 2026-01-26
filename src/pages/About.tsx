@@ -53,25 +53,25 @@ const timeline = [
 ];
 
 // ───────────────── Team (UPDATED) ─────────────────
-// Put images in: public/team/bharatvaj.jpeg, thiru.jpg, shakeel.jpg
+// Put images in: public/images/image_2.jpg, image_4.jpg, image_3.jpg
 const team = [
   {
     name: "Bharatvaj",
     role: "Founder & CTO",
     bio: "",
-    image: "/team/bharatvaj.jpeg",
+    image: "/images/image_2.jpg",
   },
   {
     name: "Thirumurugan",
     role: "Founder & CEO",
     bio: "",
-    image: "/team/thiru.jpg",
+    image: "/images/image_4.jpg",
   },
   {
     name: "Shakeel",
     role: "Founder & COO",
     bio: "",
-    image: "/team/shakeel.jpg",
+    image: "/images/image_3.jpg",
   },
 ];
 
@@ -106,8 +106,8 @@ export default function About() {
               const IconComponent = principle.icon;
               return (
                 <div key={principle.title} className="text-center space-y-4">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-goftus-aqua/10 flex items-center justify-center">
-                    <IconComponent className="w-8 h-8 text-goftus-aqua" />
+                  <div className="w-16 h-16 mx-auto rounded-full bg-cyan-400/10 flex items-center justify-center border border-cyan-400/30">
+                    <IconComponent className="w-8 h-8 text-cyan-200" />
                   </div>
                   <div>
                     <h3 className="heading-sm text-foreground mb-3">
@@ -138,8 +138,8 @@ export default function About() {
             {timeline.map((item) => (
               <div key={item.year} className="flex items-start space-x-6">
                 <div className="flex-shrink-0">
-                  <div className="w-16 h-16 rounded-full bg-goftus-aqua/10 border-2 border-goftus-aqua flex items-center justify-center">
-                    <span className="text-goftus-aqua font-bold text-sm">
+                  <div className="w-16 h-16 rounded-full bg-cyan-400/10 border-2 border-cyan-400 flex items-center justify-center">
+                    <span className="text-cyan-200 font-bold text-sm">
                       {item.year}
                     </span>
                   </div>
@@ -167,7 +167,7 @@ export default function About() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {team.map((person) => (
               <div key={person.name} className="text-center space-y-4">
-                <div className="w-32 h-32 mx-auto rounded-full bg-goftus-aqua/10 border border-border-subtle overflow-hidden">
+                <div className="w-32 h-32 mx-auto rounded-full bg-cyan-400/10 border border-cyan-400/30 overflow-hidden">
                   <img
                     src={person.image}
                     alt={person.name}
@@ -178,7 +178,7 @@ export default function About() {
                 </div>
                 <div>
                   <h3 className="heading-sm text-foreground">{person.name}</h3>
-                  <p className="text-goftus-aqua font-medium text-sm mb-2">
+                  <p className="text-cyan-200 font-medium text-sm mb-2">
                     {person.role}
                   </p>
                 </div>
@@ -207,9 +207,9 @@ export default function About() {
               href="https://wa.me/916380654780?text=Hi%20GOFTUS%2C%20here%20are%20my%20skills%20and%20talents..."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-4 bg-card-elevated border border-border-subtle rounded-lg hover:border-goftus-aqua/40 transition-all"
+              className="flex items-center gap-3 px-6 py-4 bg-card-elevated border border-border-subtle rounded-lg hover:border-cyan-400/40 transition-all"
             >
-              <MessageCircle className="w-6 h-6 text-goftus-aqua" />
+              <MessageCircle className="w-6 h-6 text-cyan-200" />
               <span className="text-foreground">DM us on WhatsApp</span>
             </a>
 
@@ -218,9 +218,9 @@ export default function About() {
               href="https://instagram.com/goftus_ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 px-6 py-4 bg-card-elevated border border-border-subtle rounded-lg hover:border-goftus-aqua/40 transition-all"
+              className="flex items-center gap-3 px-6 py-4 bg-card-elevated border border-border-subtle rounded-lg hover:border-cyan-400/40 transition-all"
             >
-              <Instagram className="w-6 h-6 text-goftus-aqua" />
+              <Instagram className="w-6 h-6 text-cyan-200" />
               <span className="text-foreground">DM us on Instagram @goftus_ai</span>
             </a>
           </div>

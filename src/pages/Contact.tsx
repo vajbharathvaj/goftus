@@ -16,11 +16,26 @@ export default function Contact() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    setIsSubmitted(true);
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      setIsSubmitted(true);
+    } else {
+      alert("Failed to send message. Please try again later.");
+    }
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    alert("Something went wrong. Please try again.");
+  }
+};
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -31,8 +46,8 @@ export default function Contact() {
       <main className="min-h-screen pt-24 flex items-center justify-center">
         <div className="mx-auto max-w-2xl px-6 text-center">
           <div className="bg-card-elevated border border-border-subtle rounded-2xl p-12 space-y-6">
-            <div className="w-16 h-16 mx-auto rounded-full bg-goftus-aqua/10 flex items-center justify-center">
-              <CheckCircle className="w-8 h-8 text-goftus-aqua" />
+            <div className="w-16 h-16 mx-auto rounded-full bg-cyan-400/10 flex items-center justify-center border border-cyan-400/30">
+              <CheckCircle className="w-8 h-8 text-cyan-200" />
             </div>
             <div>
               <h1 className="heading-lg text-foreground mb-4">Thank you!</h1>
@@ -40,10 +55,7 @@ export default function Contact() {
                 We've received your message and will get back to you within 24 hours.
               </p>
               <div className="space-y-4">
-                <Button variant="hero" size="lg" className="w-full">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Schedule a call
-                </Button>
+                
                 <Button variant="outline" onClick={() => setIsSubmitted(false)}>
                   Send another message
                 </Button>
@@ -85,19 +97,19 @@ export default function Contact() {
 
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 rounded-lg bg-goftus-aqua/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-goftus-aqua" />
+                  <div className="w-10 h-10 rounded-lg bg-cyan-400/10 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <Mail className="w-5 h-5 text-cyan-200" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Email us</h3>
-                    <p className="text-foreground-secondary text-sm mb-1">hello@goftus.com</p>
+                    <p className="text-foreground-secondary text-sm mb-1">goftus.in@gmail.com</p>
                     <p className="text-foreground-muted text-xs">We typically respond within 4 hours</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 rounded-lg bg-goftus-aqua/10 flex items-center justify-center flex-shrink-0">
-                    <Calendar className="w-5 h-5 text-goftus-aqua" />
+                  <div className="w-10 h-10 rounded-lg bg-cyan-400/10 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <Calendar className="w-5 h-5 text-cyan-200" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Book a call</h3>
@@ -107,22 +119,19 @@ export default function Contact() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 rounded-lg bg-goftus-aqua/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-goftus-aqua" />
+                  <div className="w-10 h-10 rounded-lg bg-cyan-400/10 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <MapPin className="w-5 h-5 text-cyan-200" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Visit us</h3>
                     <p className="text-foreground-secondary text-sm mb-1">San Francisco, CA</p>
-                    <p className="text-foreground-muted text-xs">Schedule an in-person meeting</p>
+                   
                   </div>
                 </div>
               </div>
 
               <div className="pt-8">
-                <Button variant="hero" size="lg" className="w-full">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Book a call
-                </Button>
+                
               </div>
             </div>
 
@@ -228,42 +237,30 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Quick Links */}
+      {/* Contact Spotlight */}
       <section className="py-16 bg-background">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center space-y-4">
-              <h3 className="heading-sm text-foreground">Sales Inquiries</h3>
-              <p className="text-foreground-secondary text-sm">
-                Ready to get started? Let's discuss pricing and implementation.
-              </p>
-              <Button variant="outline" size="sm">
-                <Mail className="w-4 h-4 mr-2" />
-                sales@goftus.com
-              </Button>
-            </div>
-
-            <div className="text-center space-y-4">
-              <h3 className="heading-sm text-foreground">Technical Support</h3>
-              <p className="text-foreground-secondary text-sm">
-                Need help with integration or have technical questions?
-              </p>
-              <Button variant="outline" size="sm">
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Support Portal
-              </Button>
-            </div>
-
-            <div className="text-center space-y-4">
-              <h3 className="heading-sm text-foreground">Partnership</h3>
-              <p className="text-foreground-secondary text-sm">
-                Interested in becoming a GOFTUS partner or integration?
-              </p>
-              <Button variant="outline" size="sm">
-                <Mail className="w-4 h-4 mr-2" />
-                partners@goftus.com
-              </Button>
-            </div>
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-[32px] border border-cyan-400/20 bg-white/5 px-8 py-10 text-center shadow-[0_30px_80px_rgba(2,12,23,0.5)]">
+            <div className="pointer-events-none absolute -top-24 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-cyan-400/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-48 w-48 rounded-full bg-blue-500/15 blur-3xl" />
+            <p className="text-xs uppercase tracking-[0.35em] text-cyan-200/80">Contact</p>
+            <h3 className="mt-3 text-3xl font-semibold text-foreground">
+              One inbox for sales, support, and partnerships.
+            </h3>
+            <p className="mt-3 text-foreground-secondary">
+              Reach us anytime and we’ll route your request to the right team.
+            </p>
+            <Button
+              variant="outline"
+              size="lg"
+              className="mt-6 rounded-full border-cyan-400/40 bg-white/5 text-cyan-100 hover:bg-white/10"
+              asChild
+            >
+              <a href="mailto:goftus.in@gmail.com">
+                <Mail className="w-5 h-5 mr-2" />
+                goftus.in@gmail.com
+              </a>
+            </Button>
           </div>
         </div>
       </section>

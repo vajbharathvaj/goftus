@@ -243,7 +243,8 @@ export default function SecurityDetails() {
                 <BellRing className="h-4 w-4 text-goftus-aqua" />
                 Notification & RCA Targets
               </div>
-              <table className="w-full text-sm">
+              <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px] text-sm">
                 <thead className="text-left text-muted-foreground">
                   <tr>
                     <th className="px-4 py-3">Severity</th>
@@ -267,6 +268,7 @@ export default function SecurityDetails() {
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </section>
 
