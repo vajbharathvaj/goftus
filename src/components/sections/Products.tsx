@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Code, Image as ImageIcon } from "lucide-react";
+import { fetchProducts, ProductItem } from "@/api/products";
 
 /* --------- Product cards (images not demos) --------- */
-const products = [
+const fallbackProducts = [
   {
     id: "callflow",
     name: "CallFlow AI",
@@ -12,6 +13,7 @@ const products = [
       "An intelligent call analysis platform that transforms customer conversations into actionable business insights in real time.",
     image: "/products/call-flow.png",
     url: "https://callflow.goftus.com/",
+    subtitle: "product_snapshot",
     benefits: [
       "Automatically transcribe and analyze sales and support calls",
       "Detect customer intent, objections, and sentiment instantly",
@@ -30,6 +32,7 @@ const products = [
       "An AI-powered business planning tool that helps founders and teams turn ideas into structured, investor-ready business plans.",
     image: "/products/saim.png",
     url: "https://www.saim.ai/",
+    subtitle: "product_snapshot",
     benefits: [
       "Create complete business plans in minutes, not weeks",
       "Built-in market analysis, positioning, and growth strategy",
@@ -111,6 +114,45 @@ for (const point of goftusAdvantages) {
 `;
 
 export function Products() {
+  const [products, setProducts] = useState<ProductItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetchProducts({ subtitle: "product_snapshot", status: "active" })
+      .then((data) => {
+        if (!isMounted) return;
+        setProducts(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+        setProducts([]);
+      })
+      .finally(() => {
+        if (!isMounted) return;
+        setLoading(false);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const snapshotProducts = useMemo(() => {
+    if (products.length > 0) {
+      return products.map((item) => ({
+        id: item.id,
+        name: item.name,
+        description: item.description,
+        image: item.image_url || "/products/call-flow.png",
+        url: item.link || "",
+        subtitle: item.subtitle,
+        benefits: item.benefits || [],
+        flow: [],
+      }));
+    }
+    return fallbackProducts;
+  }, [products]);
+
   return (
     <section className="py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -124,25 +166,34 @@ export function Products() {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {products.map((product) => (
-            <a
+          {snapshotProducts.map((product) => (
+            <div
               key={product.id}
-              href={product.url}
-              target="_blank"
-              rel="noreferrer"
-              className="group space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(2,12,23,0.45)] transition hover:border-cyan-400/40 hover:bg-white/10"
+              className={`group space-y-6 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(2,12,23,0.45)] ${
+                product.url ? "transition hover:border-cyan-400/40 hover:bg-white/10" : ""
+              }`}
             >
-              <ProductImage
-                src={product.image}
-                alt={`${product.name} preview`}
-                caption={product.name}
-              />
+              {product.url ? (
+                <a href={product.url} target="_blank" rel="noreferrer">
+                  <ProductImage
+                    src={product.image}
+                    alt={`${product.name} preview`}
+                    caption={product.name}
+                  />
+                </a>
+              ) : (
+                <ProductImage
+                  src={product.image}
+                  alt={`${product.name} preview`}
+                  caption={product.name}
+                />
+              )}
 
               {/* Product Details */}
               <div className="space-y-4">
                 <div>
                   <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-cyan-100/90">
-                    Product snapshot
+                    {product.subtitle === "live_product" ? "Live product" : "Product snapshot"}
                   </div>
                   <h3 className="heading-sm text-white mb-3">{product.name}</h3>
                   <p className="text-slate-200/90 text-[15px] leading-relaxed">
@@ -163,25 +214,34 @@ export function Products() {
                       ))}
                     </ul>
                   </div>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-cyan-200/80 mb-2">
-                      Flow
-                    </p>
-                    <ol className="space-y-2 text-sm text-slate-300">
-                      {product.flow.map((step, index) => (
-                        <li key={step} className="flex gap-2">
-                          <span className="text-cyan-200">{index + 1}.</span>
-                          <span>{step}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
+                  {product.flow?.length ? (
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-cyan-200/80 mb-2">
+                        Flow
+                      </p>
+                      <ol className="space-y-2 text-sm text-slate-300">
+                        {product.flow.map((step, index) => (
+                          <li key={step} className="flex gap-2">
+                            <span className="text-cyan-200">{index + 1}.</span>
+                            <span>{step}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  ) : null}
                 </div>
-                <div className="text-sm text-cyan-200/90 underline underline-offset-4">
-                  Visit website →
-                </div>
+                {product.url ? (
+                  <a
+                    href={product.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-cyan-200/90 underline underline-offset-4"
+                  >
+                    Visit website →
+                  </a>
+                ) : null}
               </div>
-            </a>
+            </div>
           ))}
         </div>
 
@@ -228,3 +288,5 @@ export function Products() {
     </section>
   );
 }
+
+

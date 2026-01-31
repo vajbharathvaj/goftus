@@ -22,6 +22,7 @@ import BlogPost from "./pages/BlogPost";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminBlogs from "./pages/admin/AdminBlogs";
 import AdminBlogEditor from "./pages/admin/AdminBlogEditor";
+import AdminProducts from "./pages/admin/AdminProducts";
 
 const queryClient = new QueryClient();
 
@@ -68,6 +69,14 @@ const App = () => (
                   element={
                     <AdminRoute>
                       <AdminBlogEditor />
+                    </AdminRoute>
+                  }
+                />
+                <Route
+                  path="admin/products"
+                  element={
+                    <AdminRoute>
+                      <AdminProducts />
                     </AdminRoute>
                   }
                 />
